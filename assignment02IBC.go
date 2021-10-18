@@ -81,6 +81,8 @@ func VerifyTransaction(transaction *BlockData, chainHead *Block) bool {
 // InsertBlock is used to insert a block into the blockchain
 func InsertBlock(blockData []BlockData, chainHead *Block) *Block {
 
+	coinbaseTrans := BlockData{Title: "Coinbase", Sender: "System", Receiver: rootUser, Amount: miningReward}
+	blockData = append(blockData, coinbaseTrans)
 	for i := range blockData {
 		transaction := blockData[i]
 		if !VerifyTransaction(&transaction, chainHead) {
